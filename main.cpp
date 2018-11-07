@@ -4,13 +4,15 @@
 
 int main() {
     std::string s, p;
-    std::cin >> s >> p;
-
-    size_t n = p.length();
+    std::cin >> s;
 
     lib::NFA nfa = lib::NFA(s);
+    std::cout << nfa.description << std::endl;
 
-    int ans = -1;
+    std::cin >> p;
+    size_t n = p.length();
+
+    int ans = lib::INF;
     for (size_t i = 0; i < n; ++i) {
         nfa.clear();
         if (nfa.is_terminal()) {
@@ -21,11 +23,11 @@ int main() {
             nfa.go(p[j]);
 
             if (nfa.is_terminal()) {
-                ans = std::max(ans, (int)(j - i + 1));
+                ans = std::min(ans, (int)(j - i + 1));
             }
         }
     }
-    if (ans == -1) {
+    if (ans == lib::INF) {
         std::cout << "INF" << std::endl;
     } else {
         std::cout << ans << std::endl;
