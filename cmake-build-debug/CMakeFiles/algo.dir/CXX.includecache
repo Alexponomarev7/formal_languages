@@ -6,11 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/lexolordan/CLionProjects/algo/library/library.cpp
-library.h
-/Users/lexolordan/CLionProjects/algo/library/library.h
-
-/Users/lexolordan/CLionProjects/algo/library/library.h
+../library/library.h
 iostream
 -
 unordered_map
@@ -29,4 +25,12 @@ map
 -
 set
 -
+
+/Users/lexolordan/CLionProjects/algo/main.cpp
+iostream
+-
+vector
+-
+library.h
+/Users/lexolordan/CLionProjects/algo/library.h
 

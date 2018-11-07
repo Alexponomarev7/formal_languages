@@ -2,6 +2,10 @@
 
 lib::FA::Vertex::Vertex(bool is_terminal) : _is_terminal(is_terminal) {}
 
+lib::FA::Vertex* lib::FA::get_start() const {
+    return _start;
+}
+
 void lib::FA::clear() {
     _state.clear();
     _state.insert(_start);
@@ -77,9 +81,9 @@ lib::NFA::NFA(const std::string &s) {
                 if (st.size() < 2)
                     signal(Errors::PARSING_REGULAR_EXPRESSION);
 
-                first = st.top();
-                st.pop();
                 second = st.top();
+                st.pop();
+                first = st.top();
                 st.pop();
 
                 first.add(second);
@@ -90,9 +94,9 @@ lib::NFA::NFA(const std::string &s) {
                 if (st.size() < 2)
                     signal(Errors::PARSING_REGULAR_EXPRESSION);
 
-                first = st.top();
-                st.pop();
                 second = st.top();
+                st.pop();
+                first = st.top();
                 st.pop();
 
                 first.sums(second);
@@ -104,6 +108,7 @@ lib::NFA::NFA(const std::string &s) {
                     signal(Errors::PARSING_REGULAR_EXPRESSION);
 
                 first = st.top();
+                st.pop();
                 first.kleene();
 
                 st.push(first);
@@ -152,16 +157,18 @@ void lib::NFA::sums(lib::NFA &second) {
 }
 
 void lib::NFA::kleene() {
-    Vertex *new_start = create_vertex(), *new_terminal = create_vertex();
+    Vertex *new_start = create_vertex(), *middle = create_vertex(),
+    *new_terminal = create_vertex();
 
-    new_start->nexts[lib::EPS].insert(_start);
+    new_start->nexts[lib::EPS].insert(middle);
     for (auto x : _terminals) {
-        x->nexts[lib::EPS].insert(_start);
-        x->nexts[lib::EPS].insert(new_terminal);
+        x->nexts[lib::EPS].insert(middle);
     }
+    middle->nexts[lib::EPS].insert(_start);
+    middle->nexts[lib::EPS].insert(new_terminal);
 
     _terminals.clear();
-    description = description + "^*";
+    description = "(" + description + ")*";
     _start = new_start;
     set_terminal(new_terminal);
 }
