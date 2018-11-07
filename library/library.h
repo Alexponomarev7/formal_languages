@@ -1,7 +1,3 @@
-//
-// Created by Alexey A. Ponomarev on 07.11.18.
-//
-
 #ifndef ALGO_LIBRARY_H
 #define ALGO_LIBRARY_H
 
