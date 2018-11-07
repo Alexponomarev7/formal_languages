@@ -185,3 +185,39 @@ void lib::NFA::go(char go) {
     _state = new_state;
     push();
 }
+
+int get(lib::FA::Vertex* v) {
+    static std::unordered_map<lib::FA::Vertex*, int> d;
+    static int x = 0;
+
+    if (d.find(v) != d.end())
+        return d[v];
+
+    d[v] = x;
+    x++;
+
+    return d[v];
+}
+
+void print(lib::FA::Vertex* v) {
+    static std::unordered_set<lib::FA::Vertex*> f;
+
+    static int x = 0;
+
+    if (f.find(v) != f.end())
+        return;
+
+    f.insert(v);
+
+    for (auto x : v->nexts) {
+        for (auto y : x.second) {
+            std::cout <<get(v) << " " << get(y) << " ";
+            if (x.first == lib::EPS) {
+                std::cout << "eps" << std::endl;
+            } else {
+                std::cout <<(char)x.first << std::endl;
+            }
+            print(y);
+        }
+    }
+}
