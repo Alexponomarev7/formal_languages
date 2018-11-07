@@ -1,7 +1,3 @@
-//
-// Created by Alexey A. Ponomarev on 07.11.18.
-//
-
 #include "library.h"
 
 lib::FA::Vertex::Vertex(bool is_terminal) : _is_terminal(is_terminal) {}
