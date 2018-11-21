@@ -62,6 +62,10 @@ lib::FA::Vertex *lib::FA::create_vertex() {
 }
 
 lib::NFA::NFA(char x) {
+    if (x == '1') {
+        x = lib::EPS;
+    }
+
     _start = create_vertex();
     Vertex *v = create_vertex();
     _start->nexts[x].insert(v);
@@ -115,8 +119,9 @@ lib::NFA::NFA(const std::string &s) {
 
                 break;
             default:
-                if (x < 'a' || x > 'z')
+                if (x != '1' && (x < 'a' || x > 'z'))
                     signal(Errors::PARSING_REGULAR_EXPRESSION);
+            
                 st.push(NFA(x));
                 break;
         }

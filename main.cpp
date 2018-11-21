@@ -7,7 +7,7 @@ int main() {
     std::cin >> s;
 
     lib::NFA nfa = lib::NFA(s);
-    std::cout << nfa.description << std::endl;
+    //std::cout << nfa.description << std::endl;
 
     std::cin >> p;
     size_t n = p.length();
