@@ -7,12 +7,12 @@ int main() {
     std::cin >> s;
 
     lib::NFA nfa = lib::NFA(s);
-    //std::cout << nfa.description << std::endl;
+    std::cout << nfa.description << std::endl;
 
     std::cin >> p;
     size_t n = p.length();
 
-    int ans = lib::INF;
+    int ans = 0;
     for (size_t i = 0; i < n; ++i) {
         nfa.clear();
         if (nfa.is_terminal()) {
@@ -23,7 +23,7 @@ int main() {
             nfa.go(p[j]);
 
             if (nfa.is_terminal()) {
-                ans = std::min(ans, (int)(j - i + 1));
+                ans = std::max(ans, (int)(j - i + 1));
             }
         }
     }
